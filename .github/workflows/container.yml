@@ -15,20 +15,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    secrets:
-      SECRET_1: ${{ secrets.AWS_S3_BUCKET_NAME }}
-      SECRET_2: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      SECRET_3: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
     steps:
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm run build
 
       - uses: shinyinc/action-aws-cli@v1.2
-      - run: aws s3 sync dist s3://${{ SECRET_1 }}/container/latest
+      - run: aws s3 sync dist s3://${{ secret.AWS_S3_BUCKET_NAME }}/container/latest
         env:
-          AWS_ACCESS_KEY_ID: ${{ SECRET_2 }}
-          AWS_SECRET_ACCESS_KEY: ${{ SECRET_3 }}
+          AWS_ACCESS_KEY_ID: ${{ secret.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secret.AWS_SECRET_ACCESS_KEY }}
 
           AWS_DEFAULT_REGION: us-east-1
