@@ -1,4 +1,4 @@
-name: deploy-mfe-marketing
+name: deploy-container
 
 on:
   push:
